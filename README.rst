@@ -163,7 +163,7 @@ This will create a dataset ``test_pybigquery`` with tables named ``sample_one_ro
 
 Set up an environment and run tests::
 
-    pyvenv .env
+    python3 -m venv .env
     source .env/bin/activate
     pip install -r dev_requirements.txt
     pytest

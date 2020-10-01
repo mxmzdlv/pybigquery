@@ -1,6 +1,8 @@
 sqlalchemy>=1.1.9
 google-cloud-bigquery>=1.6.0
+google-cloud-bigquery-storage==2.0.0
 future==0.16.0
+alembic==1.4.3
 
 pytest==3.2.2
 pytz==2017.2

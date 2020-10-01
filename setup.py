@@ -27,8 +27,10 @@ setup(
         'sqlalchemy>=1.1.9',
         'google-cloud-bigquery>=1.6.0',
         'future',
+        'alembic==1.4.3'
     ],
     tests_require=[
+        'pytest',
         'pytz'
     ],
     entry_points={

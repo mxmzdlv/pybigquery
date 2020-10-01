@@ -4,8 +4,10 @@
 /.vscode/
 *.pyc
 .cache/
+.idea/
 *.iml
 /pybigquery.egg-info
 /dist
 /build
 env
+venv/

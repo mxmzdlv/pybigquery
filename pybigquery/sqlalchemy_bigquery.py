@@ -21,6 +21,15 @@ import re
 
 from .parse_url import parse_url
 
+try:
+    import alembic
+except ImportError:
+    pass
+else:
+    from alembic.ddl import impl
+    class PyBigQueryImpl(impl.DefaultImpl):
+        __dialect__ = 'bigquery'
+
 FIELD_ILLEGAL_CHARACTERS = re.compile(r'[^\w]+')
 
 
