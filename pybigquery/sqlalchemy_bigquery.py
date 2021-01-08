@@ -136,6 +136,22 @@ class BigQueryCompiler(SQLCompiler):
             kwargs['compile_kwargs'] = util.immutabledict({'include_table': False})
         super(BigQueryCompiler, self).__init__(dialect, statement, column_keys, inline, **kwargs)
 
+    def visit_array(self, element, **kw):
+        return "[%s]" % self.visit_clauselist(element, **kw)
+
+    def visit_struct(self, element, within_columns_clause=True, **kw):
+        if element.field:
+            return self.preparer.quote_column(element.field)
+        kw["within_columns_clause"] = True
+        values = self.visit_clauselist(element, **kw)
+        return "struct(%s)" % values
+
+    def visit_getitem_binary(self, binary, operator, **kw):
+        return "%s.%s" % (
+            self.process(binary.left, **kw),
+            self.process(binary.right, **kw),
+        )
+
     def visit_select(self, *args, **kwargs):
         """
         Use labels for every column.
