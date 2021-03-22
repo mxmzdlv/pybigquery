@@ -38,6 +38,7 @@ from sqlalchemy.engine.default import DefaultDialect, DefaultExecutionContext
 from sqlalchemy.engine.base import Engine
 from sqlalchemy.sql.schema import Column
 from sqlalchemy.sql import elements
+
 import re
 
 from .parse_url import parse_url
@@ -149,11 +150,11 @@ class BigQueryExecutionContext(DefaultExecutionContext):
 
 
 class BigQueryCompiler(SQLCompiler):
-    def __init__(self, dialect, statement, column_keys=None,
-                 inline=False, **kwargs):
+    def __init__(self, dialect, statement, column_keys=None, **kwargs):
         if isinstance(statement, Column):
             kwargs['compile_kwargs'] = util.immutabledict({'include_table': False})
-        super(BigQueryCompiler, self).__init__(dialect, statement, column_keys, inline, **kwargs)
+        # TODO: handle this change to be compatible for all versions?
+        super(BigQueryCompiler, self).__init__(dialect, statement, column_keys=column_keys, **kwargs)
 
     def visit_select(self, *args, **kwargs):
         """
@@ -291,7 +292,6 @@ class BigQueryDialect(DefaultDialect):
     supports_unicode_statements = True
     supports_unicode_binds = True
     supports_native_decimal = True
-    returns_unicode_strings = True
     description_encoding = None
     supports_native_boolean = True
     supports_simple_order_by_label = True
