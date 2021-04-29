@@ -4,6 +4,13 @@
 
 [1]: https://pypi.org/project/pybigquery/#history
 
+### [0.6.2](https://www.github.com/googleapis/python-bigquery-sqlalchemy/compare/v0.6.1...v0.6.2) (2021-04-29)
+
+
+### Bug Fixes
+
+* Select expressions no-longer force use of labels ([#129](https://www.github.com/googleapis/python-bigquery-sqlalchemy/issues/129)) ([669b301](https://www.github.com/googleapis/python-bigquery-sqlalchemy/commit/669b301359f9f37c5c7286a245080b8af2567186))
+
 ### [0.6.1](https://www.github.com/googleapis/python-bigquery-sqlalchemy/compare/v0.6.0...v0.6.1) (2021-04-12)
 
 
