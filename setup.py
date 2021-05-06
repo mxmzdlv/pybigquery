@@ -19,7 +19,22 @@
 # CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import io
-from setuptools import setup
+import setuptools
+
+# Disable version normalization performed by setuptools.setup()
+try:
+    # Try the approach of using sic(), added in setuptools 46.1.0
+    from setuptools import sic
+except ImportError:
+    # Try the approach of replacing packaging.version.Version
+    sic = lambda v: v
+    try:
+        # setuptools >=39.0.0 uses packaging from setuptools.extern
+        from setuptools.extern import packaging
+    except ImportError:
+        # setuptools <39.0.0 uses packaging from pkg_resources.extern
+        from pkg_resources.extern import packaging
+    packaging.version.Version = packaging.version.LegacyVersion
 
 # Package metadata.
 
@@ -39,9 +54,9 @@ def readme():
         return f.read()
 
 
-setup(
+setuptools.setup(
     name=name,
-    version=version,
+    version=sic(version),
     description=description,
     long_description=readme(),
     long_description_content_type="text/x-rst",
@@ -65,9 +80,9 @@ setup(
     ],
     platforms="Posix; MacOS X; Windows",
     install_requires=[
-        "sqlalchemy>=1.1.9,<1.4.0dev",
+        "sqlalchemy>=1.2.0,<1.4.0dev",
         "google-auth>=1.14.0,<2.0dev",  # Work around pip wack.
-        "google-cloud-bigquery>=1.12.0",
+        "google-cloud-bigquery>=2.15.0",
         "google-api-core>=1.19.1",  # Work-around bug in cloud core deps.
         "future",
     ],
